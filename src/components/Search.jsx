@@ -23,9 +23,6 @@ const Search = () => {
         const SearchResult = await searchSymbols(input);
         const result = SearchResult.result;
         setBestMatches(result);
-
-        console.log("API Key:", import.meta.env.VITE_API_KEY);
-
       }
     } catch (error) {
       setBestMatches([]);

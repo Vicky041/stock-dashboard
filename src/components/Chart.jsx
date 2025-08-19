@@ -16,11 +16,13 @@ import StockContext from "../context/StockContext";
 import { fetchHistoricalData } from "../api/stock-api";
 
 const Chart = () => {
-  const [data, setData] = useState([]);
+  
   const [filter, setFilter] = useState("1W");
 
   const { darkMode } = useContext(ThemeContext);
   const { stockSymbol } = useContext(StockContext);
+
+  const [data, setData] = useState([]);
 
   const formatData = (data) => {
     return data.c.map((item, index) => {
@@ -49,6 +51,8 @@ const Chart = () => {
         const { startTimestampUnix, endTimestampUnix } = getDateRange();
         const resolution = chartConfig[filter].resolution;
         const result = await fetchHistoricalData( stockSymbol, resolution, startTimestampUnix, endTimestampUnix );
+
+        
         setData(formatData(result));
       }
       catch (error){
@@ -106,7 +110,7 @@ const Chart = () => {
             contentStyle={darkMode ? { backgroundColor: "#111827" } : null}
             itemStyle={darkMode ? { color: "#818cf8" } : null}
           />
-          <XAxis dataKey={"date"} />
+          <XAxis dataKey="date" />
           <YAxis domain={["dataMin", "dataMax"]} />
         </AreaChart>
       </ResponsiveContainer>
